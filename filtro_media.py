@@ -7,7 +7,7 @@ import time
 cuda.init()
 
 def filtro_media_cuda(img_array):
-    mask_size = 31  # Tamaño fijo de la máscara, puedes cambiarlo si quieres
+    mask_size = 31  
 
     ctx = make_default_context()
     try:

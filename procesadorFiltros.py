@@ -4,7 +4,7 @@ from PIL import Image
 import io
 import cv2
 
-# Importa tus filtros CUDA (asegúrate que estén implementados correctamente)
+# Filtros CUDA
 from filtro_log import filtro_log_cuda
 from filtro_gaussiano import filtro_gaussiano_cuda
 from filtro_media import filtro_media_cuda

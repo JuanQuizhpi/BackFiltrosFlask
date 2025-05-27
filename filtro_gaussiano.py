@@ -26,7 +26,7 @@ def generate_gaussian_kernel(size, sigma):
     return kernel
 
 def filtro_gaussiano_cuda(image):
-    mask_size = 41  # Tamaño fijo de la máscara (puedes cambiar si quieres)
+    mask_size = 41  # Tamaño fijo de la máscara 
 
     device = cuda.Device(0)
     context = device.make_context()

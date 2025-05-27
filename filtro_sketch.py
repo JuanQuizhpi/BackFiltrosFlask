@@ -14,7 +14,7 @@ def cleanup_cuda_context(ctx):
     ctx.pop()
     ctx.detach()
 
-# Código CUDA como string
+# Kernel CUDA 
 kernel_code = """
 __global__ void invert_image(float *img, float *output, int size) {
     int idx = blockIdx.x * blockDim.x + threadIdx.x;
@@ -50,7 +50,7 @@ def sketch_filter(img, blur_kernel=21):
         threads = 256
         blocks = (size + threads - 1) // threads
 
-        # --- Inversión de imagen ---
+        #Inversión de imagen
         img_gpu = cuda.mem_alloc(img_flat.nbytes)
         inv_gpu = cuda.mem_alloc(img_flat.nbytes)
         cuda.memcpy_htod(img_gpu, img_flat)

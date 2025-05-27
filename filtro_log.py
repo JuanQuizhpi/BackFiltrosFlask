@@ -30,7 +30,7 @@ def filtro_log_cuda(image):
     context = device.make_context()
 
     try:
-        # ---------- CONFIGURACIÓN FIJA ----------
+        
         mascara = 5  # Tamaño de la máscara
         kernel_sigma = round((mascara / 6.0) * 100) / 100.0
         k_center = mascara // 2
@@ -39,7 +39,7 @@ def filtro_log_cuda(image):
         kernel_flat = kernel.ravel()
         height, width = image.shape
 
-        # ---------- KERNEL CUDA ----------
+        
         mod = SourceModule("""
         __global__ void convolutionKernel(
             const unsigned char* d_input,
@@ -79,7 +79,7 @@ def filtro_log_cuda(image):
 
         convolutionKernel = mod.get_function("convolutionKernel")
 
-        # ---------- MEMORIA EN GPU ----------
+        
         d_input = cuda.mem_alloc(image.nbytes)
         d_output = cuda.mem_alloc(image.nbytes)
         d_kernel = cuda.mem_alloc(kernel_flat.nbytes)
@@ -87,7 +87,7 @@ def filtro_log_cuda(image):
         cuda.memcpy_htod(d_input, image)
         cuda.memcpy_htod(d_kernel, kernel_flat)
 
-        # ---------- EJECUCIÓN ----------
+        
         block = (16, 16, 1)
         grid = ((width + block[0] - 1) // block[0],
                 (height + block[1] - 1) // block[1], 1)
@@ -106,7 +106,7 @@ def filtro_log_cuda(image):
 
         cuda.Context.synchronize()
 
-        # ---------- RESULTADO ----------
+        
         output_image = np.empty_like(image)
         cuda.memcpy_dtoh(output_image, d_output)
 
